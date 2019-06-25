@@ -294,10 +294,18 @@ defmodule Cluster.Strategy.Kubernetes do
     end
   end
 
-  defp format_node(:ip, %{ip: ip}, app_name, _cluster_name), do: :"#{app_name}@#{ip}"
+  defp format_node(:ip, %{ip: ip}, app_name, _cluster_name) do
+    node = :"#{app_name}@#{ip}"
+    IO.inspect node
+
+    node
+  end
 
   defp format_node(:dns, %{ip: ip, namespace: namespace}, app_name, cluster_name) do
     ip = String.replace(ip, ".", "-")
-    :"#{app_name}@#{ip}.#{namespace}.pod.#{cluster_name}.local"
+    node = :"#{app_name}@#{ip}.#{namespace}.pod.#{cluster_name}.local"
+    IO.inspect node
+
+    node
   end
 end
